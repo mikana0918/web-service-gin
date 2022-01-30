@@ -9,7 +9,7 @@ import (
 
 type album struct {
 	ID     string  `json:"id"`
-	Title  string  `json:"tittle"`
+	Title  string  `json:"title"`
 	Artist string  `json:"artist"`
 	Price  float64 `json:"price"`
 }
@@ -29,7 +29,7 @@ func postAlbums(c *gin.Context) {
 	var newAlbum album
 
 	// Call BindJSON to bind the received JSON to
-	// newAlbum.
+	// newAlbum.ct.T
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
 	}
@@ -55,11 +55,16 @@ func getAlbumById(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
-func main() {
+func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	router.POST("/albums", postAlbums)
 	router.GET("/albums/:id", getAlbumById)
 
+	return router
+}
+
+func main() {
+	router := setupRouter()
 	router.Run("localhost:8080")
 }
