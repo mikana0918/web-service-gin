@@ -10,6 +10,9 @@ serve: ## Serve Go server in the current dir
 test-run-get: ## Get the in-memory resource of /albums
 	curl http://localhost:8080/albums
 
+test-run-get-by-id: ## Get the in-memory resource of /albums/${id}
+	curl http://localhost:8080/albums/2
+
 test-run-post: ## Post the in-memory rousource of /albums
 	curl http://localhost:8080/albums \
     --include \
