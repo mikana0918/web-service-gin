@@ -61,10 +61,16 @@ func TestGetAlbumById(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
+}
 
-	req2, _ := http.NewRequest("GET", "/albums/9999999", nil) //should return NotFound
+func TestGetAlbumByIdNotFound(t *testing.T) {
+	router := setupRouter()
 
-	router.ServeHTTP(w, req2)
+	w := httptest.NewRecorder()
+
+	req, _ := http.NewRequest("GET", "/albums/99999999", nil)
+
+	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 404, w.Code)
 }
