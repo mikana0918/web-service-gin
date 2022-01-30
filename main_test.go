@@ -50,3 +50,27 @@ func TestPostAlbums(t *testing.T) {
 		}
 	}
 }
+
+func TestGetAlbumById(t *testing.T) {
+	router := setupRouter()
+
+	w := httptest.NewRecorder()
+
+	req, _ := http.NewRequest("GET", "/albums/1", nil)
+
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
+}
+
+func TestGetAlbumByIdNotFound(t *testing.T) {
+	router := setupRouter()
+
+	w := httptest.NewRecorder()
+
+	req, _ := http.NewRequest("GET", "/albums/99999999", nil)
+
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 404, w.Code)
+}
