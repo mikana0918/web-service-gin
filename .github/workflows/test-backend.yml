@@ -1,5 +1,5 @@
 on: [push, pull_request]
-name: Test
+name: Test Backend
 jobs:
   test:
     strategy:
