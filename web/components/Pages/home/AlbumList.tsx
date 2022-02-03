@@ -5,7 +5,7 @@ import { Album } from '@/types'
 export const AlbumList = ({ albums }: { albums: Album[] }) => {
   const list = albums.map(
     (album, idx) => (
-      <Box mb={4} >
+      <Box mb={4} key={idx}>
         <MediaCard
           key={idx}
           title={album.Title}

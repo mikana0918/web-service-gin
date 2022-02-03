@@ -1,35 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import styles from '../styles/Home.module.css'
-import MediaCard from '@/components/Card/MediaCard'
-import { Album } from '@/types'
+import styles from '@/styles/Home.module.css'
 import Box from '@mui/material/Box';
+import { Album } from '@/types'
+import { AlbumList } from "@/components/Pages/home/AlbumList"
 
-const AlbumList = ({albums}: {albums: Album[] }) => {
-  const list = albums.map(
-    (album, idx) => (
-      <Box mb={4} >
-        <MediaCard
-          key={idx}
-          title={album.Title}
-          description={album.Title}
-          imageSrc={album.ImageSrc}
-          price={album.Price}
-        />
-      </Box>
-    )
-  )
-
-  return (
-    <div>
-      {list}
-    </div>
-  )
-}
+import { albums as albumsApi } from "@/api/index"
 
 
 const Home: NextPage = () => {
+  const d = albumsApi.getAlbums()
+
   const sampleAlbum: Album[] = [
     {
       ID: "1",
@@ -60,14 +42,11 @@ const Home: NextPage = () => {
         <title>web-service-gin by mikana0918</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
         <Box sx={{ justifyContent: 'center' }}>
           <AlbumList albums={ sampleAlbum } />
         </Box>
       </main>
-
-      {/* <footer></footer> */}
     </div>
   )
 }
