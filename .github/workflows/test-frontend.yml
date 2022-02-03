@@ -1,11 +1,11 @@
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
     paths:
       - 'web/**'
       - '.github/workflows/test-frontend.yml'
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
     paths:
       - 'web/**'
       - '.github/workflows/test-frontend.yml'
