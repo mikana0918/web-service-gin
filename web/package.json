@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "npx next build",
+    "start": "npx next start",
+    "lint": "npx next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
