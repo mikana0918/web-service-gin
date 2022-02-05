@@ -8,16 +8,35 @@ import (
 )
 
 type album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
+	ID       string  `json:"id"`
+	Title    string  `json:"title"`
+	Artist   string  `json:"artist"`
+	Price    float64 `json:"price"`
+	ImageSrc string  `json:"imageSrc"`
 }
 
 var albums = []album{
-	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
+	{
+		ID:       "1",
+		Title:    "DM",
+		Artist:   "fromis9",
+		Price:    2.4,
+		ImageSrc: "/fromis9.jpeg",
+	},
+	{
+		ID:       "2",
+		Title:    "Airplane",
+		Artist:   "iz*one",
+		Price:    3.5,
+		ImageSrc: "/izone.jpeg",
+	},
+	{
+		ID:       "3",
+		Title:    "That day",
+		Artist:   "Lovelyz",
+		Price:    2.6,
+		ImageSrc: "/lovelyz.jpeg",
+	},
 }
 
 // getAlbums responds with the list of all albums as JSON.
