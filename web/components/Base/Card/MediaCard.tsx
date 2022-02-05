@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 interface PropType {
   title: string;
-  description: string;
+  description?: string;
   price: number;
   imageSrc: string
 }

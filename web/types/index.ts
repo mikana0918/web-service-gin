@@ -1,7 +1,7 @@
 export interface Album {
-  ID: string
-  Title: string
-  Artist: string
-  Price: number
-  ImageSrc: string
+  id: string
+  title: string
+  artist: string
+  price: number
+  imageSrc: string
 }

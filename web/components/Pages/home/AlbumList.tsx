@@ -8,10 +8,9 @@ export const AlbumList = ({ albums }: { albums: Album[] }) => {
       <Box mb={4} key={idx}>
         <MediaCard
           key={idx}
-          title={album.Title}
-          description={album.Title}
-          imageSrc={album.ImageSrc}
-          price={album.Price}
+          title={album.title}
+          imageSrc={album.imageSrc}
+          price={album.price}
         />
       </Box>
     )
