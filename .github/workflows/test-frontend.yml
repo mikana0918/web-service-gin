@@ -27,7 +27,7 @@ jobs:
 
       # see: https://github.com/actions/setup-node/issues/32#issuecomment-539794249
       - name: Read .nvmrc
-        working-directory: frontend
+        working-directory: web
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
 
