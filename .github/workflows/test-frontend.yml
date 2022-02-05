@@ -40,5 +40,6 @@ jobs:
       #   run: yarn lint 
 
       - name: Test Build
+        working-directory: web
         run: yarn build
         
