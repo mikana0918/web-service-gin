@@ -14,7 +14,7 @@ func TestGetAlbums(t *testing.T) {
 	router := setupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/albums", nil)
+	req, _ := http.NewRequest("GET", "/api/albums", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
@@ -34,7 +34,7 @@ func TestPostAlbums(t *testing.T) {
 
 	testAlbumJson, _ := json.Marshal(testAlbum)
 
-	req, _ := http.NewRequest("POST", "/albums", bytes.NewBuffer(
+	req, _ := http.NewRequest("POST", "/api/albums", bytes.NewBuffer(
 		testAlbumJson,
 	))
 
@@ -56,7 +56,7 @@ func TestGetAlbumById(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	req, _ := http.NewRequest("GET", "/albums/1", nil)
+	req, _ := http.NewRequest("GET", "/api/albums/1", nil)
 
 	router.ServeHTTP(w, req)
 
@@ -68,7 +68,7 @@ func TestGetAlbumByIdNotFound(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	req, _ := http.NewRequest("GET", "/albums/99999999", nil)
+	req, _ := http.NewRequest("GET", "/api/albums/99999999", nil)
 
 	router.ServeHTTP(w, req)
 

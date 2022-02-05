@@ -10,6 +10,9 @@ serve: ## Serve Go server in the current dir. (required: air)
 	echo Make sure you run this script at project root directory.
 	go run .
 
+test: 
+	go test
+
 echo-api-ep: ## echoes current local endpoint.
 	echo $(LOCAL_API_EP)
 
