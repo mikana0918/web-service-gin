@@ -5,3 +5,5 @@ export interface Album {
   price: number
   imageSrc: string
 }
+
+export type AlbumWithoutId = Omit<Album, "id">

@@ -1,25 +1,25 @@
 import TextField from '@mui/material/TextField'
 import styles from './ModalInner.module.scss'
 import { useState } from "react"
-import { Album } from "@/types/index"
+import { AlbumWithoutId } from "@/types/index"
 import Button from "@mui/material/Button"
-
-type DataType = Omit<Album, "id">
+import { albums as albumsApi } from "@/api/index"
 
 interface PropType {
 }
 
 const ModalInner = (props: PropType) => {
-  const [data, setData] = useState<DataType>({
+  const [data, setData] = useState<AlbumWithoutId>({
     title: "",
     artist: "",
     price: 0,
     imageSrc: ""
   })
 
-  const handleConfirm = () => {
-    console.log("handleConfirm")
-    console.log(data)
+  const handleConfirm = async () => {
+    const req = await albumsApi.addNew(data)
+
+    alert("new album has been added!")
   }
 
   return (
