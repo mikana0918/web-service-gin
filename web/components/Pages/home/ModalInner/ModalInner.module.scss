@@ -1,0 +1,11 @@
+.modalInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    margin-bottom: 24px;
+    width: 40vw;
+  }
+}

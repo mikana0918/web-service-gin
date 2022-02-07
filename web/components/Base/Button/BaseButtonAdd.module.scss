@@ -1,0 +1,18 @@
+.btn {
+  &Add {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 10vh;
+    right: 5vw;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: initial;
+    filter: drop-shadow(6px 6px 6px gray);
+  }
+}

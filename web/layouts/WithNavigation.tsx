@@ -5,24 +5,11 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { makeStyles } from "@mui/styles";
+import styles from './Navigation.module.scss';
 
-const useStyles = makeStyles({
-  topGrid: {
-    position: 'fixed',
-    top: 0,
-    backgroundColor: 'white'
-  },
-  bottomGrid: {
-    position: 'fixed',
-    bottom: 0,
-    backgroundColor: 'white'
-  }
-});
 
 export const DefaultBottomNavigation = () => {
   const [value, setValue] = React.useState(0)
-  const classes = useStyles()
 
   return (
     <Grid
@@ -30,14 +17,14 @@ export const DefaultBottomNavigation = () => {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      className={classes.bottomGrid}
     >
       <BottomNavigation 
         showLabels
         value={value}
-        onChange={(event, newValue) => {
+        onChange={(_, newValue) => {
           setValue(newValue);
         }}
+        className={styles.navigationBottom}
       >
         <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
