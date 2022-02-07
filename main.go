@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type album struct {
@@ -44,6 +45,7 @@ func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
+// add new album
 func postAlbums(c *gin.Context) {
 	var newAlbum album
 
@@ -51,6 +53,11 @@ func postAlbums(c *gin.Context) {
 	// newAlbum.ct.T
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
+	}
+
+	// create id
+	if newAlbum.ID == "" {
+		newAlbum.ID = uuid.New().String() // create new uuid if not set
 	}
 
 	// Add the new album to the slice.
