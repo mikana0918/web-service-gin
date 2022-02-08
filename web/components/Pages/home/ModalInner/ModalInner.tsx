@@ -3,13 +3,14 @@ import styles from './ModalInner.module.scss'
 import { useState, useEffect }  from "react"
 import { AlbumWithoutId } from "@/types/index"
 import Button from "@mui/material/Button"
-import { albums as albumsApi } from "@/api/index"
 import * as React from 'react';
 import { useDispatch } from "react-redux";
 import { getAlbums, addNew } from "@/store/slices/alibumSlice"
 
 
-interface PropType {}
+interface PropType {
+  handleToggleDialog: Function
+}
 
 const ModalInner = (props: PropType) => {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const ModalInner = (props: PropType) => {
 
     dispatch(getAlbums())
 
+    props.handleToggleDialog() // try to close dialog
   }
 
   return (

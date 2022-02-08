@@ -39,7 +39,7 @@ const Home: NextPage = () => {
         <AddButton handleOnClick={() => toggleDialog()} />
         <Modal
           open={dialogState.shouldShow}
-          children={<ModalInner />}
+          children={<ModalInner handleToggleDialog={() => toggleDialog()}/>}
           onClose={() => toggleDialog()}
         />
         <Box sx={{ justifyContent: 'center' }}>
