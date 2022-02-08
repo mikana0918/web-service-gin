@@ -3,26 +3,31 @@ import Head from 'next/head'
 import React, {useState, useEffect} from 'react'
 import styles from '@/styles/Home.module.css'
 import Box from '@mui/material/Box';
-import { Album } from '@/types'
 import { AlbumList } from "@/components/Pages/home/AlbumList"
-import { albums as albumsApi } from "@/api/index"
-
+import { DefaultBottomNavigation } from "@/layouts/WithNavigation"
+import {AddButton} from '@/components/Base/Button/Add'
+import { Modal } from '@mui/material'
+import ModalInner from '@/components/Pages/home/ModalInner/ModalInner'
+import { useSelector } from '@/store';
+import {useDispatch} from "react-redux";
+import { albumsSelector } from '@/store/selectors/albums';
+import { getAlbums } from "@/store/slices/alibumSlice"
 
 const Home: NextPage = () => {
-  const [data, setData] = useState<{albums: Album[]}>({ albums: [] });
+  const dispatch = useDispatch()
+  const albumsState = useSelector(albumsSelector)
+
+  const [dialogState, setDialogState] = useState({
+    shouldShow: false
+  })
+
+  const toggleDialog = () => setDialogState({
+    shouldShow: !dialogState.shouldShow
+  })
 
   useEffect(() => {
-    const asyncData = async () => {
-      const albums = await albumsApi.getAlbums();
-
-      setData({
-        ...data,
-        albums
-      });
-    }
-
-    asyncData();
-  }, []);
+    dispatch(getAlbums())
+  }, [dispatch])
 
   return (
     <div className={styles.container}>
@@ -31,10 +36,18 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <AddButton handleOnClick={() => toggleDialog()} />
+        <Modal
+          open={dialogState.shouldShow}
+          onClose={() => toggleDialog()}
+        >
+          <ModalInner handleToggleDialog={() => toggleDialog()}></ModalInner>
+        </Modal>
         <Box sx={{ justifyContent: 'center' }}>
-          <AlbumList albums={ data.albums } />
+          <AlbumList albums={albumsState.albums}/>
         </Box>
       </main>
+      <DefaultBottomNavigation />
     </div>
   )
 }
