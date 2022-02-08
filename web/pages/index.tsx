@@ -39,9 +39,10 @@ const Home: NextPage = () => {
         <AddButton handleOnClick={() => toggleDialog()} />
         <Modal
           open={dialogState.shouldShow}
-          children={<ModalInner handleToggleDialog={() => toggleDialog()}/>}
           onClose={() => toggleDialog()}
-        />
+        >
+          <ModalInner handleToggleDialog={() => toggleDialog()}></ModalInner>
+        </Modal>
         <Box sx={{ justifyContent: 'center' }}>
           <AlbumList albums={albumsState.albums}/>
         </Box>
