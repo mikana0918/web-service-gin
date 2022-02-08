@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { albums as albumsApi } from '@/api/index';
 import { Album, AlbumWithoutId } from "@/types"
+import { AppDispatch } from '@/store/index';
 
 interface TypedState { 
   albums: Album[],
@@ -32,7 +33,7 @@ export const albumsSlice = createSlice({
 })
 
 export const getAlbums = () => {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     const albums = await albumsApi.getAlbums()
     console.log(albums)
 
@@ -41,7 +42,7 @@ export const getAlbums = () => {
 }
 
 export const addNew = (data: AlbumWithoutId) => {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     const req = await albumsApi.addNew(data)
 
     if (req) {
