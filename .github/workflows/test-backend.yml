@@ -5,7 +5,10 @@ on:
     branches: [ main ]
 
 name: Test Backend
-jobs:
+defaults:
+  run:
+    working-directory: backend
+jobs:    
   test:
     strategy:
       matrix:

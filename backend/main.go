@@ -84,6 +84,12 @@ func getAlbumById(c *gin.Context) {
 func setupRouter() *gin.Engine {
 	router := gin.Default()
 
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "alive",
+		})
+	})
+
 	api := router.Group("/api")
 	{
 		api.GET("/albums", getAlbums)
@@ -96,5 +102,5 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	router := setupRouter()
-	router.Run("localhost:8080")
+	router.Run(":8080") // need reverse proxy if we want to run on localhost:8080
 }
