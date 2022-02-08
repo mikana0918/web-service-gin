@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { Album } from "@/types"
 import { AlbumWithoutId } from '../types/index';
 

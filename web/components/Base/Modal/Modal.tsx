@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import styles from './Modal.module.scss'
 
 interface PropType {
-  children: ReactElement; // 適当
+  children: JSX.Element; // 適当
   open: boolean;
   handleClose(): void;
 }
