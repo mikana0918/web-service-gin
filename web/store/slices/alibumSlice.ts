@@ -1,23 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { albums as albumsApi } from '@/api/index';
-import { Album } from "@/types"
+import { Album, AlbumWithoutId } from "@/types"
 
 interface TypedState { 
-  albums: Album[]
+  albums: Album[],
+  addAlbumsResponse: {
+    succeeded: boolean;
+    albumRecord: Partial<Album>
+  }
 }
 
 const initialState: TypedState = {
-  albums: []
+  albums: [],
+  addAlbumsResponse: {
+    succeeded: false,
+    albumRecord: {}
+  }
 }
 
 export const albumsSlice = createSlice({
   name: "albums",
   initialState,
   reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
     setAlbums: (state, action) => {
       state.albums = action.payload
-    }
+    },
+    setAddNew: (state, action) => {
+      state.addAlbumsResponse = action.payload
+    } 
   }
 })
 
@@ -30,5 +40,26 @@ export const getAlbums = () => {
   }
 }
 
-export const {setAlbums} = albumsSlice.actions
+export const addNew = (data: AlbumWithoutId) => {
+  return async (dispatch) => {
+    const req = await albumsApi.addNew(data)
+
+    if (req) {
+      const payload: TypedState["addAlbumsResponse"]  = {
+        succeeded: true,
+        albumRecord: req
+      }
+
+      dispatch(albumsSlice.actions.setAddNew(payload))
+    } else {
+      const payload: TypedState["addAlbumsResponse"]  = {
+        succeeded: false,
+        albumRecord: {}
+      }
+      dispatch(albumsSlice.actions.setAddNew(payload))
+    }
+  }
+}
+
+export const {setAlbums, setAddNew} = albumsSlice.actions
 export const reducer = albumsSlice.reducer
