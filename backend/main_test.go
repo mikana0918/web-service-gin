@@ -26,7 +26,7 @@ func TestPostAlbums(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	testAlbum := album{
+	testAlbum := Album{
 		ID:     "9999",
 		Title:  "hoge-title",
 		Artist: "hoge-artist",
@@ -57,7 +57,7 @@ func TestPostAlbumsWithoutId(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	testAlbum := album{
+	testAlbum := Album{
 		ID:     "",
 		Title:  "hoge-title--without-id",
 		Artist: "hoge-artist--without-id",

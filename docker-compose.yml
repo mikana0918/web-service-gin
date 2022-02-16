@@ -1,5 +1,36 @@
 version: "3"
 services:
+  # reverse-proxy:
+  #   # The official v2 Traefik docker image
+  #   image: traefik:v2.6
+  #   # Enables the web UI and tells Traefik to listen to docker
+  #   command: 
+  #     - "--log.level=DEBUG"
+  #     - "--api.insecure=true"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #   ports:
+  #     # The HTTP port
+  #     - "80:80"
+  #     # The Web UI (enabled by --api.insecure=true)
+  #     - "8000:8080"
+  #   volumes:
+  #     # So that Traefik can listen to the Docker events
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - TZ=Asia/Tokyo
+  #   # labels:
+  #   #   - "traefik.enable=true"
+  #   #   - "traefik.port=80"
+  #   #   # - "traefik.frontend.entryPoints=web"
+  #   #   - "traefik.frontend.entryPoints=web"
+  #   #   - "traefik.docker.network=web"
+  #   #   - "traefik.http.routers.frontend.rule=Host(`service.localhost`)"
+  #   networks:
+  #     - internal
+  #     - web
+
   backend:
     volumes: 
       - ./backend/:/backend
@@ -9,6 +40,17 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 127.0.0.1:8080:8080
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.port=80"
+    #   # - "traefik.http.routers.frontend.rule=Path(`/api`)"
+    #   - "traefik.frontend.entryPoints=web"
+    #   # - "traefik.frontend.rule=Path(`/api`)"
+    #   - traefik.frontend.rule=PathPrefix:/api
+    #   # - "traefik.docker.network=web"
+    networks:
+      # - internal
+      - web
   frontend:
     volumes:
       - ./web/:/frontend
@@ -17,4 +59,28 @@ services:
       context: ./web 
       dockerfile: ./Dockerfile
     ports:
-      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3000:80
+    environment:
+      PORT: 80
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.port=80"
+    #   - "traefik.frontend.entryPoints=web"
+    #   # - "traefik.docker.network=web"
+    #   # - "traefik.frontend.rule=Path(`/`)"
+    #   - traefik.frontend.rule=PathPrefix:/
+    networks:
+      # - internal
+      - web
+  # whoami:
+  #   image: "traefik/whoami"
+  #   container_name: "simple-service"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+  #     - "traefik.http.routers.whoami.entrypoints=web"
+networks:
+  web:
+    external: true
+  internal:
+    external: false

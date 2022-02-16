@@ -112,13 +112,13 @@ func setupDB() {
 	db.AutoMigrate(&Album{})
 
 	// Create Record
-	db.Create(&Album{
-		ID:       "1",
-		Title:    "DM",
-		Artist:   "fromis9",
-		Price:    2.4,
-		ImageSrc: "/fromis9.jpeg",
-	})
+	// db.Create(&Album{
+	// 	ID:       "1",
+	// 	Title:    "DM",
+	// 	Artist:   "fromis9",
+	// 	Price:    2.4,
+	// 	ImageSrc: "/fromis9.jpeg",
+	// })
 
 	// Read
 	var album Album
