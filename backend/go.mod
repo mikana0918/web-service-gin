@@ -9,4 +9,5 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	golang.org/x/sys v0.0.0-20220204135822-1c1b9b1eba6a // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
+	gorm.io/gorm v1.22.5 // indirect
 )
