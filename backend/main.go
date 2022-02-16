@@ -6,9 +6,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
-type album struct {
+type Album struct {
 	ID       string  `json:"id"`
 	Title    string  `json:"title"`
 	Artist   string  `json:"artist"`
@@ -16,7 +18,7 @@ type album struct {
 	ImageSrc string  `json:"imageSrc"`
 }
 
-var albums = []album{
+var albums = []Album{
 	{
 		ID:       "1",
 		Title:    "DM",
@@ -47,7 +49,7 @@ func getAlbums(c *gin.Context) {
 
 // add new album
 func postAlbums(c *gin.Context) {
-	var newAlbum album
+	var newAlbum Album
 
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.ct.T
@@ -100,7 +102,31 @@ func setupRouter() *gin.Engine {
 	return router
 }
 
+func setupDB() {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// Migrate the Schema
+	db.AutoMigrate(&Album{})
+
+	// Create Record
+	db.Create(&Album{
+		ID:       "1",
+		Title:    "DM",
+		Artist:   "fromis9",
+		Price:    2.4,
+		ImageSrc: "/fromis9.jpeg",
+	})
+
+	// Read
+	var album Album
+	db.First(&album, 1)
+}
+
 func main() {
 	router := setupRouter()
+	setupDB()
 	router.Run(":8080") // need reverse proxy if we want to run on localhost:8080
 }
