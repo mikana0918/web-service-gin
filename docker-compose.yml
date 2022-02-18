@@ -48,6 +48,8 @@ services:
     #   # - "traefik.frontend.rule=Path(`/api`)"
     #   - traefik.frontend.rule=PathPrefix:/api
     #   # - "traefik.docker.network=web"
+    environment:
+      PORT: 8080
     networks:
       # - internal
       - web
@@ -62,6 +64,8 @@ services:
       - 127.0.0.1:3000:80
     environment:
       PORT: 80
+      API_HOST: "http://backend"
+      API_PORT: 8080
     # labels:
     #   - "traefik.enable=true"
     #   - "traefik.port=80"

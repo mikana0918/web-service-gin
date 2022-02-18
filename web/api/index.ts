@@ -4,7 +4,7 @@ import { AlbumWithoutId } from '../types/index';
 
 export const albums = {
   getAlbums: async () => await axios.get<Album[]>(`/api/albums`)
-  .then((res: AxiosResponse<Album[]>) => {
+    .then((res: AxiosResponse<Album[]>) => {
     const { data } = res;
 
     return data
