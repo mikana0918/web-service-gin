@@ -2,52 +2,27 @@
 package main
 
 import (
+	"example/web-service-gin/models"
+	"example/web-service-gin/repositories"
+	"fmt"
 	"net/http"
+
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
-type album struct {
-	ID       string  `json:"id"`
-	Title    string  `json:"title"`
-	Artist   string  `json:"artist"`
-	Price    float64 `json:"price"`
-	ImageSrc string  `json:"imageSrc"`
-}
-
-var albums = []album{
-	{
-		ID:       "1",
-		Title:    "DM",
-		Artist:   "fromis9",
-		Price:    2.4,
-		ImageSrc: "/fromis9.jpeg",
-	},
-	{
-		ID:       "2",
-		Title:    "Airplane",
-		Artist:   "iz*one",
-		Price:    3.5,
-		ImageSrc: "/izone.jpeg",
-	},
-	{
-		ID:       "3",
-		Title:    "That day",
-		Artist:   "Lovelyz",
-		Price:    2.6,
-		ImageSrc: "/lovelyz.jpeg",
-	},
-}
-
 // getAlbums responds with the list of all albums as JSON.
 func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+	albums := repositories.List()
+
+	c.IndentedJSON(http.StatusCreated, albums)
 }
 
 // add new album
 func postAlbums(c *gin.Context) {
-	var newAlbum album
+	var newAlbum models.Album
 
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.ct.T
@@ -56,12 +31,10 @@ func postAlbums(c *gin.Context) {
 	}
 
 	// create id
-	if newAlbum.ID == "" {
-		newAlbum.ID = uuid.New().String() // create new uuid if not set
-	}
+	newAlbum.ID = uuid.New() // create new uuid if not set
 
-	// Add the new album to the slice.
-	albums = append(albums, newAlbum)
+	repositories.Create(newAlbum)
+
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
@@ -70,15 +43,19 @@ func postAlbums(c *gin.Context) {
 func getAlbumById(c *gin.Context) {
 	id := c.Param("id")
 
-	// Loop over the list of albums, looking for
-	// an album whose ID value matched the parameter.
-	for _, a := range albums {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
-	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+	album := repositories.GetById(id)
+
+	c.IndentedJSON(http.StatusNotFound, album)
+}
+
+func deleteById(c *gin.Context) {
+	var album models.Album
+
+	id := c.Param("id")
+
+	repositories.Destroy(id)
+
+	c.IndentedJSON(http.StatusCreated, album)
 }
 
 func setupRouter() *gin.Engine {
@@ -95,6 +72,7 @@ func setupRouter() *gin.Engine {
 		api.GET("/albums", getAlbums)
 		api.POST("/albums", postAlbums)
 		api.GET("/albums/:id", getAlbumById)
+		api.DELETE("/albums/:id", deleteById)
 	}
 
 	return router
@@ -102,5 +80,6 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	router := setupRouter()
-	router.Run(":8080") // need reverse proxy if we want to run on localhost:8080
+	models.ConnectDatabase()
+	router.Run(fmt.Sprintf(":%s", os.Getenv("PORT"))) // need reverse proxy if we want to run on localhost:8080
 }

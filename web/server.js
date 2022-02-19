@@ -5,14 +5,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const API_URL = process.env.API_HOST || 'http://localhost:8080'
-
-console.log("🛠🛠🛠 logging config")
-console.log("🛠🛠🛠 process.env.API_HOST")
-console.log(process.env.API_HOST)
-console.log("🛠🛠🛠 process.env.API_HOST")
-console.log(process.env.APP_DOMAIN)
-console.log("🛠🛠🛠 process.env.APP_DOMAIN")
+const API_HOST = process.env.API_HOST || 'http://localhost'
+const API_PORT = process.env.API_PORT || 8080
 
 const app = next({ dev })
 const handle = app.getRequestHandler()
@@ -23,7 +17,7 @@ app.prepare().then(() => {
   server.use(
     '/api',
     createProxyMiddleware({
-      target: API_URL,
+      target: `${API_HOST}:${API_PORT}`,
       changeOrigin: true
     })
   );
@@ -32,8 +26,7 @@ app.prepare().then(() => {
     return handle(req, res)
   });
 
-  server.listen(port, err => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
+  server.listen(port, err => { if (err) throw err
+    console.log(`> Ready on ${API_HOST}:${API_PORT}`)
   });
 });

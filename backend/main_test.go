@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"example/web-service-gin/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -26,7 +27,7 @@ func TestPostAlbums(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	testAlbum := album{
+	testAlbum := models.Album{
 		ID:     "9999",
 		Title:  "hoge-title",
 		Artist: "hoge-artist",
@@ -57,7 +58,7 @@ func TestPostAlbumsWithoutId(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	testAlbum := album{
+	testAlbum := Album{
 		ID:     "",
 		Title:  "hoge-title--without-id",
 		Artist: "hoge-artist--without-id",

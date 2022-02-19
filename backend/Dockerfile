@@ -3,7 +3,15 @@ FROM golang:1.16-alpine
 WORKDIR /backend
 
 RUN apk upgrade --update && \
-  apk --no-cache add git
+  apk --no-cache add git \
+  binutils-gold \
+  curl \
+  g++ \
+  gcc \
+  gnupg \
+  libgcc \
+  linux-headers \
+  make
 
 COPY . .
 
