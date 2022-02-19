@@ -6,10 +6,15 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import styles from './Navigation.module.scss';
-
+import { useRouter } from "next/router";
 
 export const DefaultBottomNavigation = () => {
   const [value, setValue] = React.useState(0)
+  const router = useRouter();
+
+  const onLink = (href: any) => {
+    router.push(href);
+  };
 
   return (
     <Grid
@@ -26,9 +31,9 @@ export const DefaultBottomNavigation = () => {
         }}
         className={styles.navigationBottom}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} onClick={() => onLink("/")}/>
+          <BottomNavigationAction label="Favorite" icon={<FavoriteIcon />} onClick={() => onLink("/favorite")}/>
+          <BottomNavigationAction label="Search" icon={<LocationOnIcon />} onClick={() => onLink("/search")}/>
       </BottomNavigation>
     </Grid>
   )

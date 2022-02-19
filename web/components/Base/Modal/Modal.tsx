@@ -1,7 +1,6 @@
 
 import ModalUnstyled from '@mui/base/ModalUnstyled';
-import React, { MouseEventHandler, ReactElement } from 'react';
-import { makeStyles } from "@mui/styles";
+import React from 'react';
 import styles from './Modal.module.scss'
 
 interface PropType {

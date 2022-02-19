@@ -30,25 +30,18 @@ const Home: NextPage = () => {
   }, [dispatch])
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>web-service-gin by mikana0918</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={styles.main}>
-        <AddButton handleOnClick={() => toggleDialog()} />
-        <Modal
-          open={dialogState.shouldShow}
-          onClose={() => toggleDialog()}
-        >
-          <ModalInner handleToggleDialog={() => toggleDialog()}></ModalInner>
-        </Modal>
-        <Box sx={{ justifyContent: 'center' }}>
-          <AlbumList albums={albumsState.albums}/>
-        </Box>
-      </main>
-      <DefaultBottomNavigation />
-    </div>
+    <>
+      <AddButton handleOnClick={() => toggleDialog()} />
+      <Modal
+        open={dialogState.shouldShow}
+        onClose={() => toggleDialog()}
+      >
+        <ModalInner handleToggleDialog={() => toggleDialog()}></ModalInner>
+      </Modal>
+      <Box sx={{ justifyContent: 'center' }}>
+        <AlbumList albums={albumsState.albums}/>
+      </Box>
+    </> 
   )
 }
 
