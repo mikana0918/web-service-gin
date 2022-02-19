@@ -31,9 +31,7 @@ func postAlbums(c *gin.Context) {
 	}
 
 	// create id
-	if newAlbum.ID == "" {
-		newAlbum.ID = uuid.New().String() // create new uuid if not set
-	}
+	newAlbum.ID = uuid.New() // create new uuid if not set
 
 	repositories.Create(newAlbum)
 

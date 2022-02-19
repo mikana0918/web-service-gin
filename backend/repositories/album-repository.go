@@ -14,6 +14,7 @@ func List() []models.Album {
 
 func Create(album models.Album) {
 	models.DB.Create(&models.Album{
+		ID:       album.ID,
 		Title:    album.Title,
 		Artist:   album.Artist,
 		Price:    album.Price,

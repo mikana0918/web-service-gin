@@ -34,6 +34,7 @@ services:
   backend:
     volumes: 
       - ./backend/:/backend
+      - "./backend/test.db:/backend/test.db"
     tty: true
     build:
       context: ./backend
